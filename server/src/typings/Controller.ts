@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { ISafeData } from ".";
 
 export enum Methods {
   GET = "GET",
@@ -55,16 +56,29 @@ export default abstract class Controller {
     return this.router;
   }
 
-  protected onSuccess(res: Response, data: object, message?: string): Response {
-    return res.status(200).json({
+  protected onSuccess(
+    res: Response,
+    statusCode: number,
+    success: boolean,
+    data?: ISafeData,
+    message?: string
+  ): Response {
+    return res.status(statusCode).json({
+      success: success,
       message: message || "success",
       data: data,
     });
   }
 
-  protected onError(res: Response, message?: string): Response {
-    return res.status(500).json({
-      message: message || "Internal server error",
+  protected onFailure(
+    res: Response,
+    statusCode: number,
+    success: boolean,
+    message?: string
+  ): Response {
+    return res.status(statusCode).json({
+      success: success,
+      message: message || "failure",
     });
   }
 }
