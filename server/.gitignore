@@ -6,3 +6,10 @@ node_modules
 
 # production 
 dist
+
+# PRIVATE/PUBLIC RSA KEY PAIRS
+rsa-private.key
+rsa-private.key.pub
+*.key
+*.pem
+*.pub
