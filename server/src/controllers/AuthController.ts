@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
+import UserService from "../services/UserService";
 import Controller, { Methods } from "../typings/Controller";
 
 export default class AuthCotnroller extends Controller {
   path = "/auth";
   routes = [
     {
-      path: "/signup",
+      path: "/register",
       method: Methods.POST,
-      handler: this.handleSignup,
+      handler: this.handleRegister,
       localMiddleware: [],
     },
     {
@@ -22,19 +23,54 @@ export default class AuthCotnroller extends Controller {
     super();
   }
 
-  async handleLogin(
+  public async handleLogin(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    super.onSuccess(res, { route: "login" });
+    try {
+      const { email, username, password, bio } = req.body;
+      const userService = new UserService(email, username, password, bio);
+      const data = await userService.login();
+
+      if (data.success) {
+        super.onSuccess(
+          res,
+          data.statusCode,
+          data.success,
+          data.data!,
+          data.message
+        );
+      } else {
+        super.onFailure(res, data.statusCode, data.success, data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  async handleSignup(
+  public async handleRegister(
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> {
-    super.onSuccess(res, { route: "signup" });
+    try {
+      const { email, username, password, bio } = req.body;
+      const userService = new UserService(email, username, password, bio);
+      const data = await userService.register();
+      if (data.success) {
+        super.onSuccess(
+          res,
+          data.statusCode,
+          data.success,
+          data.data!,
+          data.message
+        );
+      } else {
+        super.onFailure(res, data.statusCode, data.success, data.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
