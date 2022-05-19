@@ -1,13 +1,16 @@
 import { Application, RequestHandler } from "express";
 import http from "http";
+import { Sequelize } from "sequelize/types";
 import Controller from "./Controller";
 
 export default class Server {
   private app: Application;
+  private database: Sequelize;
   private readonly PORT: number;
 
-  constructor(app: Application, PORT: number) {
+  constructor(app: Application, database: Sequelize, PORT: number) {
     this.app = app;
+    this.database = database;
     this.PORT = PORT;
   }
 
@@ -25,5 +28,14 @@ export default class Server {
     controllers.forEach((controller) => {
       this.app.use(controller.path, controller.setRoutes());
     });
+  }
+
+  public async initDatabase(): Promise<void> {
+    try {
+      await this.database.authenticate();
+      console.log("Database successfully authenticated");
+    } catch (err) {
+      console.log(`InitDatabase error: ${err}`);
+    }
   }
 }
