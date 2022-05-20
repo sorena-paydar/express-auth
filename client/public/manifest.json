@@ -1,0 +1,9 @@
+{
+  "short_name": "Very Blog",
+  "name": "Very Blog v2",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
