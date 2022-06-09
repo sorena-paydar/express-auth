@@ -1,0 +1,26 @@
+{
+  "name": "veryblog-v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build",
+    "install": "npm run install-client && npm run install-server",
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "build": "npm run build-client && npm run build-server",
+    "build-server": "npm run build --prefix server",
+    "build-client": "npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SorenaPaydar/express-postgre-todoList.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SorenaPaydar/express-postgre-todoList/issues"
+  },
+  "homepage": "https://github.com/SorenaPaydar/express-postgre-todoList#readme"
+}
