@@ -1,5 +1,6 @@
-import { Application, RequestHandler } from "express";
+import { Application, RequestHandler, Request, Response } from "express";
 import http from "http";
+import path from "path";
 import { Sequelize } from "sequelize/types";
 import Controller from "./Controller";
 
@@ -37,5 +38,11 @@ export default class Server {
     } catch (err) {
       console.log(`InitDatabase error: ${err}`);
     }
+  }
+
+  public renderClient(): void {
+    this.app.get("/*", (req: Request, res: Response) => {
+      res.sendFile(path.resolve(__dirname, "../../dist/public", "index.html"));
+    });
   }
 }
