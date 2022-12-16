@@ -40,7 +40,7 @@ export default class TokenService {
     );
 
     return {
-      token: "Bearer " + signedToken,
+      token: signedToken,
       expiresIn: expiresIn,
     };
   }
