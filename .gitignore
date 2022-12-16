@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# local env files
+.env
+
+# production 
+dist
+
+# PRIVATE/PUBLIC RSA KEY PAIRS
+rsa-private.key
+rsa-private.key.pub
+*.key
+*.pem
+*.pub
